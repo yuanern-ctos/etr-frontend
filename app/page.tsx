@@ -1,51 +1,105 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { generateClient } from "aws-amplify/data";
-import type { Schema } from "@/amplify/data/resource";
 import "./../app/app.css";
 import { Amplify } from "aws-amplify";
-import outputs from "@/amplify_outputs.json";
+import outputs from "@/amplifyconfiguration.json";
 import "@aws-amplify/ui-react/styles.css";
+import Banner from "./components/Banner";
+//import { getCurrentUser } from "aws-amplify/auth";
+import { getCurrentUser, fetchUserAttributes } from "aws-amplify/auth";
 
 Amplify.configure(outputs);
 
-const client = generateClient<Schema>();
-
-export default function App() {
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
-
-  function listTodos() {
-    client.models.Todo.observeQuery().subscribe({
-      next: (data) => setTodos([...data.items]),
-    });
-  }
+export default function HomePage() {
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    listTodos();
+    checkUser();
   }, []);
 
-  function createTodo() {
-    client.models.Todo.create({
-      content: window.prompt("Todo content"),
-    });
+  async function checkUser() {
+    try {
+      const currentUser = await getCurrentUser();
+      const userAttributes = await fetchUserAttributes();
+      setUser({ ...currentUser, attributes: userAttributes });
+    } catch (error) {
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
   return (
-    <main>
-      <h1>My todos</h1>
-      <button onClick={createTodo}>+ new</button>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.content}</li>
-        ))}
-      </ul>
-      <div>
-        🥳 App successfully hosted. Try creating a new todo.
-        <br />
-        <a href="https://docs.amplify.aws/nextjs/start/quickstart/nextjs-app-router-client-components/">
-          Review next steps of this tutorial.
-        </a>
+    <main style={{ margin: 0, padding: 0 }}>
+      <Banner user={user} />
+
+          <div style={{ padding: "0 20px" }}>
+            <h1>Welcome to Start5 Technology</h1>
+            <p>Transforming Daily Experiences thru AI</p>
+
+        {user ? (
+          <section style={{ marginTop: "20px" }}>
+            <h2>Hello, {user.attributes?.name || user.username}</h2>
+            <p>Welcome to your AI-powered productivity platform!</p>
+            <div style={{ marginTop: "30px" }}>
+              <h3>Quick Actions</h3>
+              <div style={{ display: "flex", gap: "15px", flexWrap: "wrap" }}>
+                <a href="/user-tasks" style={{
+                  padding: "10px 20px",
+                  backgroundColor: "#007bff",
+                  color: "white",
+                  textDecoration: "none",
+                  borderRadius: "4px"
+                }}>Manage Tasks</a>
+                <a href="/agentic" style={{
+                  padding: "10px 20px",
+                  backgroundColor: "#28a745",
+                  color: "white",
+                  textDecoration: "none",
+                  borderRadius: "4px"
+                }}>AI Training</a>
+                <a href="/services" style={{
+                  padding: "10px 20px",
+                  backgroundColor: "#6f42c1",
+                  color: "white",
+                  textDecoration: "none",
+                  borderRadius: "4px"
+                }}>AI Chatbot</a>
+              </div>
+            </div>
+          </section>
+        ) : (
+          <section style={{ marginTop: "20px" }}>
+            <h2>Welcome to Start5 Technology</h2>
+            <p>Transform your daily experiences with AI-powered solutions.</p>
+            <div style={{ marginTop: "30px" }}>
+              <h3>Get Started</h3>
+              <p>Sign in to access your personalized dashboard with AI tools, task management, and more.</p>
+              <button 
+                onClick={() => window.location.href = '/signin'}
+                style={{
+                  padding: "12px 24px",
+                  backgroundColor: "#007bff",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "4px",
+                  fontSize: "16px",
+                  cursor: "pointer",
+                  marginTop: "10px"
+                }}
+              >
+                Sign In to Get Started
+              </button>
+            </div>
+          </section>
+        )}
+            
       </div>
     </main>
   );
