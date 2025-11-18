@@ -1,13 +1,14 @@
 import Image from 'next/image'
 import styles from './page.module.css'
+import AuthUI from './components/AuthUI'
+import TodoList from './components/TodoList'
 
 export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
         <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
+          AWS Amplify + Next.js Fullstack Starter
         </p>
       </div>
 
@@ -29,6 +30,18 @@ export default function Home() {
           priority
         />
       </div>
+
+      {/* Authentication Section */}
+      <section style={{ marginBottom: '40px' }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Authentication</h2>
+        <AuthUI />
+      </section>
+
+      {/* Todo Application Section */}
+      <section style={{ marginBottom: '40px' }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Todo Application</h2>
+        <TodoList />
+      </section>
 
       <div className={styles.grid}>
         <a
