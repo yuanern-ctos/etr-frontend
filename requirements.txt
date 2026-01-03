@@ -1,0 +1,13 @@
+# Gemini Web Assistant Requirements
+
+# Google Gemini AI
+google-generativeai>=0.3.0
+
+# Web Automation
+playwright>=1.40.0
+
+# Environment Variables
+python-dotenv>=1.0.0
+
+# Optional: Additional utilities
+requests>=2.31.0

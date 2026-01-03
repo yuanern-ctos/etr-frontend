@@ -1,0 +1,42 @@
+# User Profile Information
+# This file contains information about you that the AI will use to interact with websites.
+# Fill in the relevant details below.
+
+Name: John Doe
+Age: 30
+Gender: Male
+Location: San Francisco, CA, USA
+Country: United States
+Occupation: Software Engineer
+Company: Tech Corp
+
+# Demographics
+Education: Bachelor's Degree in Computer Science
+Income Range: $75,000 - $100,000
+Marital Status: Single
+
+# Interests & Hobbies
+Interests: Technology, Artificial Intelligence, Web Development, Reading, Hiking, Photography
+Favorite Topics: Programming, Science Fiction, Travel, Health & Fitness
+
+# Technology Usage
+Devices: Smartphone (iPhone), Laptop (MacBook), Tablet (iPad)
+Operating System: macOS, iOS
+Browsers: Chrome, Safari
+Social Media: Twitter, LinkedIn, Reddit
+
+# Shopping Preferences
+Online Shopping Frequency: Weekly
+Preferred Brands: Apple, Nike, Amazon
+Product Categories: Electronics, Books, Clothing, Home & Garden
+
+# Additional Information
+Languages: English (Native), Spanish (Intermediate)
+Time Zone: Pacific Time (PT)
+Preferred Contact Method: Email
+
+# Notes:
+# - Customize this profile with your actual information
+# - The AI will use this context when interacting with websites
+# - Keep sensitive information (passwords, SSN, etc.) OUT of this file
+# - Update this file as needed for different use cases
